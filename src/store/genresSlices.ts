@@ -1,12 +1,22 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSlice,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
 import { genresAPI } from "../api/getGenres";
+import type { IGenres } from "../shared/types/genralTypes";
+
 
 export const filmsThunkCreator = createAsyncThunk("genres", async () => {
   const response = await genresAPI.getGenres();
   return response.data.genres;
 });
 
-const initialState = {
+interface stateType {
+  genres: IGenres[];
+}
+
+const initialState: stateType = {
   genres: [],
 };
 
@@ -15,9 +25,12 @@ const genresSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(filmsThunkCreator.fulfilled, (state, action) => {
-      state.genres = action.payload;
-    });
+    builder.addCase(
+      filmsThunkCreator.fulfilled,
+      (state, action: PayloadAction<IGenres[]>) => {
+        state.genres = action.payload;
+      },
+    );
   },
 });
 

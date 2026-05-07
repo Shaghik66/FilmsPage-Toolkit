@@ -1,16 +1,17 @@
-import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { filmsThunkCreator } from "../store/genresSlices";
 import { moviesThunk } from "../store/moviesSlice";
+import { useTypes } from "../hooks/useTypes";
 
 function App() {
-  const dispatch = useDispatch();
-  const { genres } = useSelector((state: unknown) => state.genresData);
-  const { results } = useSelector((state: unknown) => state.moviesData);
+  const { useAppDispatch, useAppSelector } = useTypes();
+  const dispatch = useAppDispatch();
+  const { genres } = useAppSelector((state) => state.genresData);
+  const { results } = useAppSelector((state) => state.moviesData);
 
   useEffect(() => {
     dispatch(filmsThunkCreator());
-    dispatch(moviesThunk())
+    dispatch(moviesThunk());
   }, []);
 
   return <></>;
