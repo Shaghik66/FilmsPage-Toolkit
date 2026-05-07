@@ -3,7 +3,7 @@ import { genresAPI } from "../api/getGenres";
 
 export const filmsThunkCreator = createAsyncThunk("genres", async () => {
   const response = await genresAPI.getGenres();
-  return  response.data.genres ;
+  return response.data.genres;
 });
 
 const initialState = {
