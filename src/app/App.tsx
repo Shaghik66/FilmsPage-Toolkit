@@ -1,7 +1,9 @@
 import { useEffect } from "react";
+import { RouterProvider } from "react-router-dom";
 import { filmsThunkCreator } from "../store/genresSlices";
 import { moviesThunk } from "../store/moviesSlice";
 import { useTypes } from "../hooks/useTypes";
+import { router } from "./routes/route";
 
 function App() {
   const { useAppDispatch, useAppSelector } = useTypes();
@@ -14,7 +16,7 @@ function App() {
     dispatch(moviesThunk());
   }, []);
 
-  return <></>;
+  return <RouterProvider router={router}></RouterProvider>;
 }
 
 export default App;
