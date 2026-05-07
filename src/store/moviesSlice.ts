@@ -1,13 +1,17 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import moviesAPI from "../api/getMovies";
+import type { IMovies, IMovieObj } from "../shared/types/genralTypes";
 
 export const moviesThunk = createAsyncThunk("moviesThunk", async () => {
   const response = await moviesAPI.getMovies();
-  return response.data;
+  return response.data.results;
 });
 
-const initialState = {
-  results: {},
+const initialState: IMovies = {
+  page: null,
+  results: [],
+  total_pages: null,
+  total_results: null,
 };
 
 const movieSlice = createSlice({
@@ -15,7 +19,7 @@ const movieSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(moviesThunk.fulfilled, (state, action) => {
+    builder.addCase(moviesThunk.fulfilled, (state, action : PayloadAction<IMovieObj[]>) => {
       state.results = action.payload;
     });
   },

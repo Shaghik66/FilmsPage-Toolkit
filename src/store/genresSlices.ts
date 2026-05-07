@@ -6,7 +6,6 @@ import {
 import { genresAPI } from "../api/getGenres";
 import type { IGenres } from "../shared/types/genralTypes";
 
-
 export const filmsThunkCreator = createAsyncThunk("genres", async () => {
   const response = await genresAPI.getGenres();
   return response.data.genres;
