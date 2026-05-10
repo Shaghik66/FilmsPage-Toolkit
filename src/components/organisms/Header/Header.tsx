@@ -1,42 +1,47 @@
-// import React from "react";
-// import { NavLink } from "react-router-dom";
-
-// export const Header = () => {
-//   return (
-//     <>
-//       <NavLink to={"/"}>Header</NavLink>
-//       <NavLink to={"/movies"}>Movies</NavLink>
-//     </>
-//   );
-// };
-
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
+import { useState, useEffect } from "react";
+import type { ChangeEvent } from "react";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import { useLangSelect } from "../../../hooks/useLangSelect";
+import { searchMovieThunk } from "../../../store/moviesSlice";
+import { useAppDispatch } from "../../../hooks/useTypes";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
-import Select from "@mui/material/Select";
-import { useLangSelect } from "../../../hooks/useLangSelect";
 
 export function Header() {
   const { lang, handleSelect } = useLangSelect();
-console.log(lang);
+  const [text, setText] = useState("");
+  const dispatch = useAppDispatch();
+
+  const neWText = (e: ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value);
+  };
+
+  useEffect(() => {
+    dispatch(searchMovieThunk({ text, lang }));
+  }, [text, lang]);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null,
   );
+
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
   );
@@ -44,6 +49,7 @@ console.log(lang);
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -57,7 +63,7 @@ console.log(lang);
   };
 
   return (
-    <AppBar position="static">
+    <AppBar sx={{ top: "0" }} position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -149,7 +155,13 @@ console.log(lang);
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
-
+            <TextField
+              id="standard-helperText"
+              label="Search Movie"
+              value={text}
+              onChange={neWText}
+              variant="standard"
+            />
             <Select
               value={lang}
               onChange={handleSelect}

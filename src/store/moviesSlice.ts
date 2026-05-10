@@ -10,7 +10,7 @@ export const moviesThunk = createAsyncThunk(
   "moviesThunk",
   async (lang: string) => {
     const response = await moviesAPI.getMovies(lang);
-    console.log(response.data.results);
+    return response.data.results;
   },
 );
 
@@ -26,7 +26,7 @@ export const searchMovieThunk = createAsyncThunk(
   "searchMovieThunk",
   async ({ text, lang }: { text: string; lang: string }) => {
     const response = await moviesAPI.searchMovie({text, lang});
-    console.log(response.data.results);
+    return response.data.results;
   },
 );
 

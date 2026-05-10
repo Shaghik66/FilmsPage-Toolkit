@@ -1,26 +1,23 @@
-import { useEffect, useState } from "react";
-import { useAppDispatch } from "../../../hooks/useTypes";
-import { searchMovieThunk } from "../../../store/moviesSlice";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../hooks/useTypes";
+import Box from "@mui/material/Box";
 import { useLangSelect } from "../../../hooks/useLangSelect";
-import type { SelectChangeEvent } from "@mui/material";
+import { moviesThunk } from "../../../store/moviesSlice";
+import { CardsContainer } from "../../organisms/Header/CardsContainer/CardsContainer";
 
 export const Home = () => {
   const { lang } = useLangSelect();
-  const [text, setText] = useState("");
   const dispatch = useAppDispatch();
+  const { results } = useAppSelector((state) => state.moviesData);
 
-  const neWText = (e: SelectChangeEvent) => {
-    setText(e.target.value);
-  };
-
+  console.log(results);
   useEffect(() => {
-    dispatch(searchMovieThunk({ text, lang }));
-  }, [text, lang]);
+    dispatch(moviesThunk(lang));
+  }, [lang]);
 
   return (
-    <div>
-      <p>Home</p>
-      <input value={text} type="text" onChange={neWText} />
-    </div>
+    <Box>
+      <CardsContainer results={results} />
+    </Box>
   );
 };
