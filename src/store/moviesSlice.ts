@@ -11,11 +11,21 @@ export const moviesThunk = createAsyncThunk("moviesThunk", async () => {
   return response.data.results;
 });
 
-export const oneMovieThunk = createAsyncThunk("oneMovieThunk", async (id : string) => {
-  const response = await moviesAPI.getOneMovie(id);
-  return response.data;
-});
+export const oneMovieThunk = createAsyncThunk(
+  "oneMovieThunk",
+  async (id: string) => {
+    const response = await moviesAPI.getOneMovie(id);
+    return response.data;
+  },
+);
 
+export const searchMovieThunk = createAsyncThunk(
+  "searchMovieThunk",
+  async (text: string) => {
+    const response = await moviesAPI.searchMovie(text);
+    console.log(response.data.results);
+  },
+);
 
 const initialState: IMovies = {
   page: null,
@@ -38,6 +48,9 @@ const movieSlice = createSlice({
     );
     builder.addCase(oneMovieThunk.fulfilled, (state, action) => {
       state.result = action.payload;
+    });
+    builder.addCase(searchMovieThunk.fulfilled, (state, action) => {
+      state.results = action.payload;
     });
   },
 });
