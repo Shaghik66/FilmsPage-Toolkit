@@ -26,4 +26,5 @@ export interface IMovies {
   results: IMovieObj[];
   total_pages: number | null;
   total_results: number | null;
+  result: null | object
 }

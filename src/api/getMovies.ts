@@ -6,6 +6,11 @@ class MoviesAPI extends CreateAPI {
       `discover/movie?api_key=${this.apiKey}&language=en-US&page=${1}`,
     );
   }
+  getOneMovie(id : string) {
+    return this.getAPI().get(
+      `/movie/${id}?api_key=${this.apiKey}&language=en-US`,
+    );
+  }
 }
 
 const moviesAPI = new MoviesAPI();
