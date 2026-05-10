@@ -15,8 +15,9 @@ export const moviesThunk = createAsyncThunk(
 );
 
 export const oneMovieThunk = createAsyncThunk(
+
   "oneMovieThunk",
-  async ({ id, lang }: { id: string; lang: string }) => {
+  async ({ id, lang }: { id: string | undefined; lang: string }) => {
     const response = await moviesAPI.getOneMovie({id, lang});
     return response.data;
   },
@@ -35,7 +36,7 @@ const initialState: IMovies = {
   results: [],
   total_pages: null,
   total_results: null,
-  result: null,
+  result: null ,
 };
 
 const movieSlice = createSlice({

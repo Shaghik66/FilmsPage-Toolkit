@@ -7,7 +7,7 @@ class MoviesAPI extends CreateAPI {
       `/discover/movie?api_key=${this.apiKey}&language=${lang}&page=${1}`,
     );
   }
-  getOneMovie({id, lang}: {id: string, lang : string}) {
+  getOneMovie({id, lang}: {id: string | undefined, lang : string}) {
     return this.getAPI().get(
       `/movie/${id}?api_key=${this.apiKey}&language=${lang}`,
     );

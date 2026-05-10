@@ -1,5 +1,5 @@
-import type { IMovieObj } from "../../../../shared/types/genralTypes";
-import { CardContainer } from "../../../molecules/CardContainer";
+import type { IMovieObj } from "../../../shared/types/genralTypes";
+import { CardContainer } from "../../molecules/CardContainer";
 import { Box } from "@mui/material";
 
 type CardsContainerPropsType = {

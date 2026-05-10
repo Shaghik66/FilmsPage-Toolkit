@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/useTypes";
 import Box from "@mui/material/Box";
 import { useLangSelect } from "../../../hooks/useLangSelect";
 import { moviesThunk } from "../../../store/moviesSlice";
-import { CardsContainer } from "../../organisms/Header/CardsContainer/CardsContainer";
+import { CardsContainer } from "../../organisms/CardsContainer/CardsContainer";
 
 export const Home = () => {
   const { lang } = useLangSelect();

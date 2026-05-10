@@ -174,6 +174,9 @@ export function Header() {
               <MenuItem value="ar-SA">
                 <em>AR</em>
               </MenuItem>
+               <MenuItem value="ru-RU">
+                <em>RU</em>
+              </MenuItem>
             </Select>
 
             <Menu
