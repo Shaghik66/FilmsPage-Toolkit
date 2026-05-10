@@ -21,10 +21,10 @@ export interface IMovieObj {
   vote_count: number;
 }
 
-export interface IMovies {
+export interface IMovies  {
   page: number | null;
   results: IMovieObj[];
   total_pages: number | null;
   total_results: number | null;
-  result: null | object
+  result: null | IMovieObj;
 }
