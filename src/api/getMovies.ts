@@ -1,19 +1,20 @@
 import { CreateAPI } from "./api";
 
 class MoviesAPI extends CreateAPI {
-  getMovies() {
+  getMovies(lang: string) {
+
     return this.getAPI().get(
-      `discover/movie?api_key=${this.apiKey}&language=en-US&page=${1}`,
+      `/discover/movie?api_key=${this.apiKey}&language=${lang}&page=${1}`,
     );
   }
-  getOneMovie(id: string) {
+  getOneMovie({id, lang}: {id: string, lang : string}) {
     return this.getAPI().get(
-      `/movie/${id}?api_key=${this.apiKey}&language=en-US`,
+      `/movie/${id}?api_key=${this.apiKey}&language=${lang}`,
     );
   }
-  searchMovie(text: string) {
-    return this.getAPI(text).get(
-      `search/movie?api_key=${this.apiKey}&query=${text}`,
+  searchMovie({text, lang}: {text: string | null, lang : string} ) {
+    return this.getAPI().get(
+      `/search/movie?api_key=${this.apiKey}&query=${text}&language=${lang}`,
     );
   }
 }

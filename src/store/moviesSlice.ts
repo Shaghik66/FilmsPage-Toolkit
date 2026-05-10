@@ -6,23 +6,26 @@ import {
 import moviesAPI from "../api/getMovies";
 import type { IMovies, IMovieObj } from "../shared/types/genralTypes";
 
-export const moviesThunk = createAsyncThunk("moviesThunk", async () => {
-  const response = await moviesAPI.getMovies();
-  return response.data.results;
-});
+export const moviesThunk = createAsyncThunk(
+  "moviesThunk",
+  async (lang: string) => {
+    const response = await moviesAPI.getMovies(lang);
+    console.log(response.data.results);
+  },
+);
 
 export const oneMovieThunk = createAsyncThunk(
   "oneMovieThunk",
-  async (id: string) => {
-    const response = await moviesAPI.getOneMovie(id);
+  async ({ id, lang }: { id: string; lang: string }) => {
+    const response = await moviesAPI.getOneMovie({id, lang});
     return response.data;
   },
 );
 
 export const searchMovieThunk = createAsyncThunk(
   "searchMovieThunk",
-  async (text: string) => {
-    const response = await moviesAPI.searchMovie(text);
+  async ({ text, lang }: { text: string; lang: string }) => {
+    const response = await moviesAPI.searchMovie({text, lang});
     console.log(response.data.results);
   },
 );
