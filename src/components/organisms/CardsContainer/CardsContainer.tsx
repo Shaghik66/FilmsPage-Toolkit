@@ -7,6 +7,7 @@ type CardsContainerPropsType = {
 };
 
 export const CardsContainer = ({ results }: CardsContainerPropsType) => {
+
   return (
     <Box
       sx={{

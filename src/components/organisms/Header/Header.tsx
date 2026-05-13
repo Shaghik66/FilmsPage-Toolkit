@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
+import { useAppSelector } from "../../../hooks/useTypes";
 import type { ChangeEvent } from "react";
 import {
   AppBar,
@@ -27,6 +28,25 @@ export function Header() {
   const { lang, handleSelect } = useLangSelect();
   const [text, setText] = useState("");
   const dispatch = useAppDispatch();
+  // const { results, result } = useAppSelector((state) => state.moviesData);
+
+  const [bgColor, setBgColor] = useState("lightblue");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 200) {
+        setBgColor("white");
+      } else {
+        setBgColor("#1976d2");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const neWText = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
@@ -58,7 +78,7 @@ export function Header() {
 
   return (
     <AppBar sx={{ top: "0" }} position="sticky">
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ borderBottom: `4px solid ${bgColor}` }}>
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <NavLink to="/">
