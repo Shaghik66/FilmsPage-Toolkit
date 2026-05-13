@@ -1,10 +1,10 @@
 import { CreateAPI } from "./api";
 
 class MoviesAPI extends CreateAPI {
-  getMovies(lang: string) {
+  getMovies({lang, page} : {lang: string, page : number}) {
 
     return this.getAPI().get(
-      `/discover/movie?api_key=${this.apiKey}&language=${lang}&page=${1}`,
+      `/discover/movie?api_key=${this.apiKey}&language=${lang}&page=${page}`,
     );
   }
   getOneMovie({id, lang}: {id: string | undefined, lang : string}) {

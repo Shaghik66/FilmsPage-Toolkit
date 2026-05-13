@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { useAppSelector } from "../../../hooks/useTypes";
 import type { ChangeEvent } from "react";
 import {
   AppBar,
@@ -28,7 +27,6 @@ export function Header() {
   const { lang, handleSelect } = useLangSelect();
   const [text, setText] = useState("");
   const dispatch = useAppDispatch();
-  // const { results, result } = useAppSelector((state) => state.moviesData);
 
   const [bgColor, setBgColor] = useState("#1976d2");
 
@@ -82,7 +80,7 @@ export function Header() {
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <NavLink to="/">
-            {" "}
+
             <Typography
               variant="h6"
               noWrap

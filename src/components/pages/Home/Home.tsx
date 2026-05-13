@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useTypes";
 import Box from "@mui/material/Box";
 import { useLangSelect } from "../../../hooks/useLangSelect";
@@ -9,11 +9,42 @@ export const Home = () => {
   const { lang } = useLangSelect();
   const dispatch = useAppDispatch();
   const { results } = useAppSelector((state) => state.moviesData);
+  const [page, setPage] = useState(10);
+  const [loading, setLoading] = useState(false);
 
-  console.log(results);
+  const handleScroll = () => {
+    const scrollTop = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.body.scrollHeight;
+
+    if (scrollTop + windowHeight >= documentHeight * 1 && !loading) {
+      setLoading(true);
+
+      setPage((prev) => prev + 1);
+    }
+  };
+
   useEffect(() => {
-    dispatch(moviesThunk(lang));
-  }, [lang]);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [loading]);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      setLoading(true);
+
+      await dispatch(moviesThunk({ lang, page }));
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      setLoading(false);
+    };
+
+    fetchMovies();
+  }, [lang, page, dispatch]);
 
   return (
     <Box>

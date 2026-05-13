@@ -8,8 +8,8 @@ import type { IMovies, IMovieObj } from "../shared/types/genralTypes";
 
 export const moviesThunk = createAsyncThunk(
   "moviesThunk",
-  async (lang: string) => {
-    const response = await moviesAPI.getMovies(lang);
+  async ({lang, page} : {lang: string, page : number}) => {
+    const response = await moviesAPI.getMovies({lang, page});
     return response.data.results;
   },
 );
