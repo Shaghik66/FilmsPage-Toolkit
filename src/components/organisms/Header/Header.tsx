@@ -30,7 +30,7 @@ export function Header() {
   const dispatch = useAppDispatch();
   // const { results, result } = useAppSelector((state) => state.moviesData);
 
-  const [bgColor, setBgColor] = useState("lightblue");
+  const [bgColor, setBgColor] = useState("#1976d2");
 
   useEffect(() => {
     const handleScroll = () => {
